@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - For the Record</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
@@ -146,6 +147,101 @@
 <!-- Bootstrap JS -->
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/custom.js"></script>
+=======
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px; }
+        .header .name { font-size: 24px; }
+        .nav-bar { display: flex; justify-content: start; gap: 20px; padding: 10px; background-color: #f2f2f2; }
+        .search-cart { display: flex; gap: 10px; }
+        .cart-container { display: flex; justify-content: center; padding: 20px; }
+        .cart-items { width: 75%; border: 1px solid #ddd; }
+        .cart-item { display: flex; align-items: center; margin-bottom: 20px; }
+        .cart-item img { width: 100px; height: 100px; margin-right: 20px; }
+        .item-info { flex-grow: 1; }
+        .remove-item { background-color: #ff0000; color: white; border: none; padding: 10px; cursor: pointer; }
+        .checkout-container {text-align: right; padding: 10px;}
+
+        /* Dropdown styles */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px 16px; z-index: 1; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown-content a:hover { background-color: #f1f1f1; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="index.html" class="name" style="text-decoration: none; color: inherit;">For the Record</a>
+    <div class="search-cart">
+        <input type="text" placeholder="Search...">
+        <button>Go</button>
+        <button onclick="window.location.href='cart.html';">Cart</button>
+        <button>Profile</button>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <div class="dropdown">
+        <span>ARTISTS</span>
+        <div class="dropdown-content">
+            <a href="#">Kanye West</a>
+            <a href="#">Taylor Swift</a>
+            <a href="#">The Weeknd</a>
+            <a href="#">Drake</a>
+            <a href="#">Michael Jackson</a>
+            <a href="#">Adele</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <span>YEAR</span>
+        <div class="dropdown-content">
+            <!-- Add year links here -->
+            <a href="#">2010</a>
+            <a href="#">2011</a>
+            <a href="#">2012</a>
+            <a href="#">2013</a>
+            <a href="#">2014</a>
+            <a href="#">2015</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <span>GENRE</span>
+        <div class="dropdown-content">
+            <!-- Add genre links here -->
+            <a href="#">Rock</a>
+            <a href="#">Jazz</a>
+            <a href="#">Hip Hop</a>
+            <a href="#">Country</a>
+            <a href="#">R&B</a>
+            <a href="#">Metal</a>
+        </div>
+    </div>
+</div>
+
+<h2>Your Cart</h2>
+
+<div class="checkout-container">
+    <button class="checkout-btn" onclick="window.location.href='checkout.html';">Checkout</button>
+</div>
+
+<div class="cart-container">
+    <div class="cart-items">
+        <!-- Sample cart item -->
+        <div class="cart-item">
+            <img src="album_image_url.jpg" alt="Album Image">
+            <div class="item-info">
+                <div>Title: Sample Album</div>
+                <div>Artist: Sample Artist</div>
+                <div>Price: $9.99</div>
+            </div>
+            <button class="remove-item">🗑 Remove</button>
+        </div>
+        <!-- More cart items would be listed here -->
+    </div>
+</div>
+>>>>>>> 6d94fc33e348f0ce0c29b37d045b7e005c65e2a6
 
 </body>
 </html>

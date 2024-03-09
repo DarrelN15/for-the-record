@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Details - For the Record</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="css/bootstrap.min.css">
+=======
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px; }
+        .header .name { font-size: 24px; }
+        .nav-bar { display: flex; justify-content: start; gap: 20px; padding: 10px; background-color: #f2f2f2; }
+        .search-cart { display: flex; gap: 10px; }
+        .item-container { display: flex; padding: 20px; }
+        .item-image { flex: 1; text-align: center; }
+        .item-image img { max-width: 80%; height: auto; }
+        .item-details { flex: 1; padding: 0 20px; }
+        .add-to-cart { margin-top: 20px; }
+    
+        /* Dropdown styles */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px 16px; z-index: 1; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown-content a:hover { background-color: #f1f1f1; }
+    </style>
+>>>>>>> 6d94fc33e348f0ce0c29b37d045b7e005c65e2a6
     
 </head>
 <body>
 
+<<<<<<< HEAD
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -110,6 +133,68 @@
       </div>
       
       <script src="js/bootstrap.bundle.min.js"></script>
+=======
+<div class="header">
+    <a href="index.html" class="name" style="text-decoration: none; color: inherit;">For the Record</a>
+    <div class="search-cart">
+        <input type="text" placeholder="Search...">
+        <button>Go</button>
+        <button onclick="window.location.href='cart.html';">Cart</button>
+        <button>Profile</button>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <div class="dropdown">
+        <span>ARTISTS</span>
+        <div class="dropdown-content">
+            <a href="#">Kanye West</a>
+            <a href="#">Taylor Swift</a>
+            <a href="#">The Weeknd</a>
+            <a href="#">Drake</a>
+            <a href="#">Michael Jackson</a>
+            <a href="#">Adele</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <span>YEAR</span>
+        <div class="dropdown-content">
+            <!-- Add year links here -->
+            <a href="#">2010</a>
+            <a href="#">2011</a>
+            <a href="#">2012</a>
+            <a href="#">2013</a>
+            <a href="#">2014</a>
+            <a href="#">2015</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <span>GENRE</span>
+        <div class="dropdown-content">
+            <!-- Add genre links here -->
+            <a href="#">Rock</a>
+            <a href="#">Jazz</a>
+            <a href="#">Hip Hop</a>
+            <a href="#">Country</a>
+            <a href="#">R&B</a>
+            <a href="#">Metal</a>
+        </div>
+    </div>
+</div>
+
+<div class="item-container">
+    <div class="item-image">
+        <img src="larger_record_image_url.jpg" alt="Larger Record Image">
+    </div>
+    <div class="item-details">
+        <h2>Record Title</h2>
+        <p>Artist: Record Artist</p>
+        <p>Price: $Price</p>
+        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et euismod ligula. Morbi mattis pretium interdum.</p>
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
+</div>
+>>>>>>> 6d94fc33e348f0ce0c29b37d045b7e005c65e2a6
 
 </body>
 </html>
