@@ -88,59 +88,66 @@
     </div>
   </nav>
 
-<div class="container mt-4">
+  <div class="container mt-4">
     <div class="row">
+        <!-- Checkout Form Column -->
         <div class="col-lg-7 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    Checkout Information
+            <h2 class="mb-4">Checkout</h2>
+            <form id="checkoutForm" action="/process-checkout" method="post">
+                <!-- First Name Input -->
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required>
                 </div>
-                <div class="card-body">
-                  <form action="/process-checkout" method="post">
-                      <!-- Form fields with name attributes -->
-                      <div class="mb-3">
-                          <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
-                      </div>
-                        <div class="mb-3">
-                            <input type="text" name="lastName" class="form-control" placeholder="Last Name" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" name="email" class="form-control" placeholder="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" name="address"  class="form-control" placeholder="Address" required>
-                        </div>
-                        <div class="mb-3">
-                          <input type="text" name="paymentInfo" class="form-control" placeholder="Payment Info" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Purchase</button>
-                    </form>
+                <!-- Last Name Input -->
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" required>
                 </div>
-            </div>
+                <!-- Email Input -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <!-- Address Input -->
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <!-- Payment Info Input -->
+                <div class="mb-3">
+                    <label for="paymentInfo" class="form-label">Payment Info</label>
+                    <input type="text" class="form-control" id="paymentInfo" name="paymentInfo" required>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Purchase</button>
+            </form>
         </div>
 
-     <!-- Order Summary -->
-     <div class="col-lg-5 mb-4">
-      <div class="card">
-          <div class="card-header">
-              Your Order
-          </div>
-          <ul class="list-group list-group-flush">
-              <% if(cart && cart.length > 0) { %>
-                  <% cart.forEach(function(item) { %>
-                      <li class="list-group-item"><%= item.name %> - $<%= item.price.toFixed(2) %></li>
-                  <% }); %>
-              <% } else { %>
-                  <li class="list-group-item">Your cart is empty</li>
-              <% } %>
-          </ul>
-          <div class="card-footer">
-              Total: $<%= total.toFixed(2) %>
-          </div>
+<!-- Order Summary Column -->
+<div class="col-lg-5 mb-4">
+  <div class="card">
+      <div class="card-header">
+          Your Order
+      </div>
+      <ul class="list-group list-group-flush">
+          <% if (cart && cart.length > 0) { %>
+              <% cart.forEach(function(item) { %>
+                  <li class="list-group-item"><%= item.name %> - $<%= item.price.toFixed(2) %></li>
+              <% }); %>
+          <% } else { %>
+              <li class="list-group-item">Your cart is empty</li>
+          <% } %>            
+      </ul>
+      <div class="card-footer">
+          Total: $<%= total.toFixed(2) %>
       </div>
   </div>
 </div>
 </div>
+</div>
+
+
 
 <!-- Bootstrap JS -->
 <script src="js/bootstrap.bundle.min.js"></script>

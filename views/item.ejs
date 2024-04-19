@@ -12,7 +12,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">For the Record</a>
+          <a class="navbar-brand" href="/">For the Record</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -80,10 +80,10 @@
             </form>
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="cart.html">Cart</a>
+                <a class="nav-link" href="/cart">Cart</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="/profile">Profile</a>
               </li>
             </ul>
           </div>
@@ -95,19 +95,25 @@
       <div class="container mt-4">
         <div class="row">
           <div class="col-md-6">
-            <!-- Item Image -->
-            <img src="images/Alleyezonme.jpeg" class="img-fluid" alt="Larger Record Image">
+            <img src="images/Alleyezonme.jpeg" class="img-fluid" alt="2Pac - All Eyez on Me">
           </div>
           <div class="col-md-6">
-            <!-- Item Details -->
             <h2>All Eyez on Me</h2>
             <p>Artist: 2pac</p>
             <p>Price: $70</p>
-            <p>Description: All Eyez on Me" is the fourth studio album by the legendary rapper 2Pac, released on February 13, 1996. This monumental double album is celebrated as one of the most influential records in hip-hop history, showcasing 2Pac's lyrical prowess and his reflections on life, fame, and survival. Spanning genres from gangsta rap to G-funk, each track offers a glimpse into 2Pac's complex world, featuring collaborations with industry icons such as Dr. Dre, Snoop Dogg, and Nate Dogg. The vinyl edition of "All Eyez on Me" offers an unparalleled auditory experience, allowing listeners to fully immerse in the depth and texture of 2Pac's visionary artistry. A must-have for collectors and hip-hop enthusiasts alike, this vinyl immortalizes 2Pac's legacy, echoing his profound impact on music and culture.</p>
-            <button class="btn btn-primary add-to-cart">Add to Cart</button>
+            <p>Description: ...</p>
+            <!-- Add a form to submit album data to the server -->
+            <form action="/cart/add-to-cart" method="post">
+              <input type="hidden" name="albumId" value="ID_OF_THE_ALBUM">
+              <input type="hidden" name="name" value="All Eyez on Me">
+              <input type="hidden" name="artist" value="2pac">
+              <input type="hidden" name="price" value="70">
+              <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
+            </form>
           </div>
         </div>
       </div>
+      
       
       <script src="js/bootstrap.bundle.min.js"></script>
 
