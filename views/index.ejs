@@ -79,8 +79,9 @@
 <!-- Main Content using Bootstrap's Grid System -->
 <div class="container mt-4">
   <div class="row">
-    <% albums.forEach(function(album) { %> <!-- Ensure 'albums' is passed from your route -->
+    <% albums.forEach(function(album) { %>
       <div class="col-md-3">
+        <!-- Wraps the card in an anchor tag to make it clickable -->
         <a href="/item/<%= album.id %>" class="card-link text-decoration-none">
           <div class="card h-100">
             <img src="<%= album.imageUrl %>" class="card-img-top" alt="<%= album.title %>">
@@ -93,11 +94,12 @@
         </a>
         <div class="card-footer">
           <button type="button" class="btn btn-primary w-100 add-to-cart-btn" data-title="<%= album.title %>" data-artist="<%= album.artist %>" data-price="<%= album.price %>" data-image="<%= album.imageUrl %>">Add to Cart</button>
-        </div>
+        </div>          
       </div>
     <% }); %>
   </div>
 </div>
+
 
 
 

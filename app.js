@@ -15,6 +15,9 @@ const usersRouter = require('./routes/users');
 const itemRouter = require('./routes/item');
 const genreRouter = require('./routes/genre');
 const productsRouter = require('./routes/products');
+const artistRouter = require('./routes/artist');
+const decadeRouter = require('./routes/decade');
+
 const setNavigation = require('./middleware/navigation');
 
 const app = express();
@@ -55,6 +58,8 @@ app.use('/checkout', checkoutRouter);
 app.use('/users', usersRouter);
 app.use('/item', itemRouter);
 app.use('/genre', genreRouter);
+app.use('/artist', artistRouter);
+app.use('/decade', decadeRouter);
 app.use('/products', productsRouter);
 
 // Catch 404 and forward to error handler

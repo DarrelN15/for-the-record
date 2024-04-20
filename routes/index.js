@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database'); // Ensure the path is correct
+const db = require('../database'); 
 
 // Home page route.
 router.get('/', async (req, res) => {
@@ -26,8 +26,6 @@ router.get('/', async (req, res) => {
             return res.status(500).send("Error fetching artists");
           }
 
-          // Pseudo code for fetching distinct decades
-          // You'll need to adapt this based on how you're storing dates in your database
           const decades = ['70s', '80s', '90s', '00s', '10s', 'Current']; // Placeholder for decades
 
           // Render the index page with albums, genres, artists, and decades

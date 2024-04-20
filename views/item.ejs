@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Details - For the Record</title>
+    <title><%= album.title %> - For the Record</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     
 </head>
@@ -78,27 +78,18 @@
       
       <div class="container mt-4">
         <div class="row">
-          <div class="col-md-6">
-            <img src="<%= album.imageUrl %>" class="img-fluid" alt="<%= album.title %>"> <!-- Dynamic image and alt text -->
-          </div>
-          <div class="col-md-6">
-            <h2><%= album.title %></h2> <!-- Dynamic title -->
-            <p>Artist: <%= album.artist %></p> <!-- Dynamic artist -->
-            <p>Price: $<%= album.price.toFixed(2) %></p> <!-- Dynamic price -->
-            <p>Description: <%= album.description %></p> <!-- Dynamic description -->
-            
-            <!-- Form for adding to cart -->
-            <form action="/cart/add-to-cart" method="post">
-              <input type="hidden" name="albumId" value="<%= album.id %>"> <!-- Dynamic album ID -->
-              <input type="hidden" name="name" value="<%= album.title %>">
-              <input type="hidden" name="artist" value="<%= album.artist %>">
-              <input type="hidden" name="price" value="<%= album.price %>">
-              <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
-            </form>
-          </div>
+            <div class="col-md-12">
+                <h1><%= album.title %></h1>
+                <p>Artist: <%= album.artist %></p>
+                <p>Price: $<%= album.price %></p>
+                <p>Description: <%= album.description %></p>
+                <!-- Optionally, show album image if available -->
+                <% if (album.imageUrl) { %>
+                    <img src="<%= album.imageUrl %>" alt="<%= album.title %>" class="img-fluid">
+                <% } %>
+            </div>
         </div>
-      </div>
-      
+    </div>
       
       <script src="js/bootstrap.bundle.min.js"></script>
 
