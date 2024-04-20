@@ -1,33 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-
-// Assuming you have a User model and are using some kind of ORM or database library
-const User = require('../models/User');
+const db = require('../database.js'); 
 
 router.get('/', (req, res) => {
   res.render('profile');
 });
 
-// Handle POST request for account creation
+// Handles POST request for account creation
 router.post('/create-account', async (req, res) => {
-  try {
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-    // Create a new user record in your database
-    const newUser = await User.create({
-      email: req.body.email,
-      password: hashedPassword,
-      role: req.body.role
-    });
-
-    // Redirect to login or profile page upon successful account creation
-    res.redirect('/login'); // Change this to the appropriate route
-  } catch (error) {
-    // Handle errors, such as email already in use
-    res.status(500).send("Account could not be created");
-  }
-});
+    try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  
+      // Create a new user record in your SQLite database
+      db.run(`INSERT INTO users (email, password, role) VALUES (?, ?, ?)`,
+        [req.body.email, hashedPassword, req.body.role], 
+        function(err) {
+          if (err) {
+            req.flash('error', 'Account could not be created');
+            res.redirect('/profile'); // Stay on the same page to show the error
+          } else {
+            req.flash('success', 'Account created successfully.');
+            res.redirect('/login'); // Adjust according to your routing
+          }
+      });
+    } catch (error) {
+      // Handle errors, such as email already in use
+      req.flash('error', 'Account could not be created');
+      res.redirect('/profile');
+    }
+  });
+  
 
 module.exports = router;

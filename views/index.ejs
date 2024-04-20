@@ -20,55 +20,43 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar items including dropdowns aligned to the left -->
       <ul class="navbar-nav me-auto">
-        <!-- ARTISTS Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ARTISTS
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Go</button>
-            <!-- Additional artist links here -->
-          </ul>
-        </li>
-        <!-- YEAR Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Decade
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-            <li><a class="dropdown-item" href="#">70's</a></li>
-            <li><a class="dropdown-item" href="#">80's</a></li>
-            <li><a class="dropdown-item" href="#">90's</a></li>
-            <li><a class="dropdown-item" href="#">00's</a></li>
-            <li><a class="dropdown-item" href="#">10's</a></li>
-            <li><a class="dropdown-item" href="#">Current</a></li>
-
-          </ul>
-        </li>
-        <!-- GENRE Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            GENRE
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-            <li><a class="dropdown-item" href="#">Blues</a></li>
-            <li><a class="dropdown-item" href="#">Classical</a></li>
-            <li><a class="dropdown-item" href="#">Country</a></li>
-            <li><a class="dropdown-item" href="#">Dance/EDM</a></li>
-            <li><a class="dropdown-item" href="#">Disco</a></li>
-            <li><a class="dropdown-item" href="#">Folk</a></li>
-            <li><a class="dropdown-item" href="#">Gospel</a></li>
-            <li><a class="dropdown-item" href="#">Hip-Hop/Rap</a></li>
-            <li><a class="dropdown-item" href="#">Jazz</a></li>
-            <li><a class="dropdown-item" href="#">Latin</a></li>
-            <li><a class="dropdown-item" href="#">Pop</a></li>
-            <li><a class="dropdown-item" href="#">R&B/Soul</a></li>
-            <li><a class="dropdown-item" href="#">Reggae</a></li>
-            <li><a class="dropdown-item" href="#">Rock</a></li>
-          </ul>
-        </li>
+    <!-- ARTISTS Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ARTISTS
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
+        <% dropdowns.artists.forEach(function(artist) { %>
+          <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
+        <% }); %>
       </ul>
+    </li>
+
+    <!-- DECADE Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Decade
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
+        <% dropdowns.decades.forEach(function(decade) { %>
+          <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
+        <% }); %>
+      </ul>
+    </li>
+
+    <!-- GENRE Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        GENRE
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+        <% dropdowns.genres.forEach(function(genre) { %>
+          <li><a class="dropdown-item" href="/genre/<%= genre %>"><%= genre %></a></li>
+        <% }); %>
+      </ul>
+    </li>
+  </ul>
+
 
       <!-- Search bar and other items aligned to the right -->
       <form class="d-flex ms-auto" role="search">
@@ -91,26 +79,26 @@
 <!-- Main Content using Bootstrap's Grid System -->
 <div class="container mt-4">
   <div class="row">
-    <!-- Dynamically generate or repeat this block for each record in your database or array -->
-    <!-- Repeat for other records -->
-    <div class="col-md-3">
-      <!-- Wrap the card in an anchor tag to make it clickable -->
-      <a href="/item" class="card-link text-decoration-none">
-        <div class="card h-100">
-          <img src="images/Alleyezonme.jpeg" class="card-img-top" alt="Record Image">
-          <div class="card-body">
-            <h5 class="card-title">All Eyez on Me</h5>
-            <p class="card-text">Artist: 2pac</p>
-            <p class="card-text">Price: $70</p>
+    <% albums.forEach(function(album) { %> <!-- Ensure 'albums' is passed from your route -->
+      <div class="col-md-3">
+        <a href="/item/<%= album.id %>" class="card-link text-decoration-none">
+          <div class="card h-100">
+            <img src="<%= album.imageUrl %>" class="card-img-top" alt="<%= album.title %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= album.title %></h5>
+              <p class="card-text">Artist: <%= album.artist %></p>
+              <p class="card-text">Price: $<%= album.price %></p>
+            </div>
           </div>
         </a>
-      <div class="card-footer">
-        <button type="button" class="btn btn-primary w-100 add-to-cart-btn" data-title="Record Title" data-artist="Record Artist" data-price="Price" data-image="images/Alleyezonme.jpeg">Add to Cart</button>
-      </div>          
-    </div>
-    </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary w-100 add-to-cart-btn" data-title="<%= album.title %>" data-artist="<%= album.artist %>" data-price="<%= album.price %>" data-image="<%= album.imageUrl %>">Add to Cart</button>
+        </div>
+      </div>
+    <% }); %>
   </div>
 </div>
+
 
 
 <!-- Bootstrap JS -->

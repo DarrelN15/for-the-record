@@ -34,42 +34,43 @@
           </ul>
         </li>
         <!-- YEAR Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Decade
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-            <li><a class="dropdown-item" href="#">70's</a></li>
-            <li><a class="dropdown-item" href="#">80's</a></li>
-            <li><a class="dropdown-item" href="#">90's</a></li>
-            <li><a class="dropdown-item" href="#">00's</a></li>
-            <li><a class="dropdown-item" href="#">10's</a></li>
-            <li><a class="dropdown-item" href="#">Current</a></li>
-          </ul>
-        </li>
-        <!-- GENRE Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            GENRE
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-            <li><a class="dropdown-item" href="#">Blues</a></li>
-            <li><a class="dropdown-item" href="#">Classical</a></li>
-            <li><a class="dropdown-item" href="#">Country</a></li>
-            <li><a class="dropdown-item" href="#">Dance/EDM</a></li>
-            <li><a class="dropdown-item" href="#">Disco</a></li>
-            <li><a class="dropdown-item" href="#">Folk</a></li>
-            <li><a class="dropdown-item" href="#">Gospel</a></li>
-            <li><a class="dropdown-item" href="#">Hip-Hop/Rap</a></li>
-            <li><a class="dropdown-item" href="#">Jazz</a></li>
-            <li><a class="dropdown-item" href="#">Latin</a></li>
-            <li><a class="dropdown-item" href="#">Pop</a></li>
-            <li><a class="dropdown-item" href="#">R&B/Soul</a></li>
-            <li><a class="dropdown-item" href="#">Reggae</a></li>
-            <li><a class="dropdown-item" href="#">Rock</a></li>
-          </ul>
-        </li>
+  <!-- ARTISTS Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      ARTISTS
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
+      <% dropdowns.artists.forEach(function(artist) { %>
+        <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- DECADE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Decade
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
+      <% dropdowns.decades.forEach(function(decade) { %>
+        <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- GENRE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      GENRE
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+      <% dropdowns.genres.forEach(function(genre) { %>
+        <li><a class="dropdown-item" href="/genre/<%= genre %>"><%= genre %></a></li>
+      <% }); %>
+    </ul>
+  </li>
       </ul>
+      
 
       <!-- Search bar and other items aligned to the right -->
       <form class="d-flex ms-auto" role="search">
@@ -89,36 +90,42 @@
 </nav>
 
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="mb-4">Create Your Account</h2>
-            <form id="createAccountForm" action="/create-account" method="post">
-              <!-- Email Input -->
-              <div class="mb-3">
-                <label for="userEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="userEmail" name="email" required>
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <!-- Password Input -->
-              <div class="mb-3">
-                <label for="userPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="userPassword" name="password" required>
-              </div>
-              <!-- Role Selection -->
-              <div class="mb-3">
-                <label for="userRole" class="form-label">Role</label>
-                <select class="form-select" id="userRole" name="role" required>
-                  <option value="">Select Role...</option>
-                  <option value="artist">Artist</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-              <!-- Submit Button -->
-              <button type="submit" class="btn btn-success btn-lg">Create Account</button>
-            </form>
-            
-        </div>
-    </div>
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <h2 class="mb-4">Create Your Account</h2>
+          <!-- Display potential flash messages for errors or success -->
+          <% if (messages.error) { %>
+            <div class="alert alert-danger" role="alert">
+              <%= messages.error %>
+            </div>
+          <% } %>
+          <% if (messages.success) { %>
+            <div class="alert alert-success" role="alert">
+              <%= messages.success %>
+            </div>
+          <% } %>          
+          <form id="createAccountForm" action="/profile/create-account" method="post">
+            <div class="mb-3">
+              <label for="userEmail" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="userEmail" name="email" required aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="userPassword" class="form-label">Password</label>
+              <input type="password" class="form-control" id="userPassword" name="password" required>
+            </div>
+            <div class="mb-3">
+              <label for="userRole" class="form-label">Role</label>
+              <select class="form-select" id="userRole" name="role" required>
+                <option value="">Select Role...</option>
+                <option value="artist">Artist</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg">Create Account</button>
+          </form>
+      </div>
+  </div>
 </div>
 
 <!-- Bootstrap JS -->

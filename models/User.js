@@ -1,12 +1,36 @@
-// const { Model, DataTypes } = require('sequelize');
-// const sequelize = require('../db/database'); // Your Sequelize connection
+const db = require('../database.js');
+const bcrypt = require('bcrypt');
 
-// class User extends Model {}
+class User {
+  static findByEmail(email, callback) {
+    // Find a user by email
+    db.get("SELECT * FROM users WHERE email = ?", [email], (err, row) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, row);
+      }
+    });
+  }
 
-// User.init({
-//   email: DataTypes.STRING,
-//   password: DataTypes.STRING,
-//   role: DataTypes.STRING
-// }, { sequelize, modelName: 'user' });
+  static create(newUser, callback) {
+    // Create a new user
+    const { email, password, role } = newUser;
+    bcrypt.hash(password, 10, (err, hashedPassword) => {
+      if (err) {
+        callback(err);
+      } else {
+        db.run("INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
+          [email, hashedPassword, role], function(err) {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, { id: this.lastID, ...newUser, password: hashedPassword });
+            }
+        });
+      }
+    });
+  }
+}
 
-// module.exports = User;
+module.exports = User;

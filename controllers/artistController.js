@@ -1,9 +1,10 @@
-const Artist = require('../models/Artist');
+const db = require('../database.js');
 
 exports.listAllArtists = (req, res) => {
-  Artist.findAll((err, artists) => {
+  db.all("SELECT * FROM artists", [], (err, artists) => {
     if (err) {
-      res.status(500).json({ error: err });
+      console.error('Error fetching artists:', err);
+      res.status(500).json({ error: 'Error fetching artists' });
     } else {
       res.json({ artists: artists });
     }

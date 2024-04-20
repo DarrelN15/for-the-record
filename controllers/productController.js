@@ -1,17 +1,16 @@
-const db = require('../db/database');
+const db = require('../database.js'); // SQLite connection
 
-const productController = {
-  listAllProducts: (req, res) => {
-    db.all('SELECT * FROM products', [], (err, rows) => {
-      if (err) {
-        res.status(500).send({ message: err.message });
-        return;
-      }
-      // Send the rows back to the client
-      res.json(rows);
-    });
-  },
-  // Other CRUD operations can be implemented here.
+exports.listAllProducts = async (req, res) => {
+    try {
+        db.all("SELECT * FROM products", [], (err, products) => {
+            if (err) {
+                console.error('Failed to fetch products:', err);
+                return res.status(500).render('error', { error: "Error loading products" });
+            }
+            res.render('product_list', { products });
+        });
+    } catch (error) {
+        console.error('Database operation failed:', error);
+        res.status(500).render('error', { error: "Error accessing the database" });
+    }
 };
-
-module.exports = productController;

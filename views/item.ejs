@@ -20,58 +20,42 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar items including dropdowns aligned to the left -->
             <ul class="navbar-nav me-auto">
-              <!-- ARTISTS Dropdown -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ARTISTS
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-                  <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Go</button>
-                  <!-- <li><a class="dropdown-item" href="#">Kanye West</a></li>
-                  <li><a class="dropdown-item" href="#">Taylor Swift</a></li>
-                  <li><a class="dropdown-item" href="#">The Weeknd</a></li> -->
-                  <!-- Additional artist links here -->
-                </ul>
-              </li>
-              <!-- YEAR Dropdown -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Decade
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-                  <li><a class="dropdown-item" href="#">70's</a></li>
-                  <li><a class="dropdown-item" href="#">80's</a></li>
-                  <li><a class="dropdown-item" href="#">90's</a></li>
-                  <li><a class="dropdown-item" href="#">00's</a></li>
-                  <li><a class="dropdown-item" href="#">10's</a></li>
-                  <li><a class="dropdown-item" href="#">Current</a></li>
-      
-                </ul>
-              </li>
-              <!-- GENRE Dropdown -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  GENRE
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-                  <li><a class="dropdown-item" href="#">Blues</a></li>
-                  <li><a class="dropdown-item" href="#">Classical</a></li>
-                  <li><a class="dropdown-item" href="#">Country</a></li>
-                  <li><a class="dropdown-item" href="#">Dance/EDM</a></li>
-                  <li><a class="dropdown-item" href="#">Disco</a></li>
-                  <li><a class="dropdown-item" href="#">Folk</a></li>
-                  <li><a class="dropdown-item" href="#">Gospel</a></li>
-                  <li><a class="dropdown-item" href="#">Hip-Hop/Rap</a></li>
-                  <li><a class="dropdown-item" href="#">Jazz</a></li>
-                  <li><a class="dropdown-item" href="#">Latin</a></li>
-                  <li><a class="dropdown-item" href="#">Pop</a></li>
-                  <li><a class="dropdown-item" href="#">R&B/Soul</a></li>
-                  <li><a class="dropdown-item" href="#">Reggae</a></li>
-                  <li><a class="dropdown-item" href="#">Rock</a></li>
-                </ul>
-              </li>
-            </ul>
+  <!-- ARTISTS Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      ARTISTS
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
+      <% dropdowns.artists.forEach(function(artist) { %>
+        <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- DECADE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Decade
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
+      <% dropdowns.decades.forEach(function(decade) { %>
+        <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+</ul>
+
+  <!-- GENRE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      GENRE
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+      <% dropdowns.genres.forEach(function(genre) { %>
+        <li><a class="dropdown-item" href="/genre/<%= genre %>"><%= genre %></a></li>
+      <% }); %>
+    </ul>
+  </li>
       
             <!-- Search bar and other items aligned to the right -->
             <form class="d-flex ms-auto" role="search">
@@ -95,19 +79,20 @@
       <div class="container mt-4">
         <div class="row">
           <div class="col-md-6">
-            <img src="images/Alleyezonme.jpeg" class="img-fluid" alt="2Pac - All Eyez on Me">
+            <img src="<%= album.imageUrl %>" class="img-fluid" alt="<%= album.title %>"> <!-- Dynamic image and alt text -->
           </div>
           <div class="col-md-6">
-            <h2>All Eyez on Me</h2>
-            <p>Artist: 2pac</p>
-            <p>Price: $70</p>
-            <p>Description: ...</p>
-            <!-- Add a form to submit album data to the server -->
+            <h2><%= album.title %></h2> <!-- Dynamic title -->
+            <p>Artist: <%= album.artist %></p> <!-- Dynamic artist -->
+            <p>Price: $<%= album.price.toFixed(2) %></p> <!-- Dynamic price -->
+            <p>Description: <%= album.description %></p> <!-- Dynamic description -->
+            
+            <!-- Form for adding to cart -->
             <form action="/cart/add-to-cart" method="post">
-              <input type="hidden" name="albumId" value="ID_OF_THE_ALBUM">
-              <input type="hidden" name="name" value="All Eyez on Me">
-              <input type="hidden" name="artist" value="2pac">
-              <input type="hidden" name="price" value="70">
+              <input type="hidden" name="albumId" value="<%= album.id %>"> <!-- Dynamic album ID -->
+              <input type="hidden" name="name" value="<%= album.title %>">
+              <input type="hidden" name="artist" value="<%= album.artist %>">
+              <input type="hidden" name="price" value="<%= album.price %>">
               <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
             </form>
           </div>

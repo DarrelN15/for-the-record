@@ -18,58 +18,42 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar items including dropdowns aligned to the left -->
             <ul class="navbar-nav me-auto">
-              <!-- ARTISTS Dropdown -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ARTISTS
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-                  <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Go</button>
-                  <!-- <li><a class="dropdown-item" href="#">Kanye West</a></li>
-                  <li><a class="dropdown-item" href="#">Taylor Swift</a></li>
-                  <li><a class="dropdown-item" href="#">The Weeknd</a></li> -->
-                  <!-- Additional artist links here -->
-                </ul>
-              </li>
-              <!-- YEAR Dropdown -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Decade
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-                  <li><a class="dropdown-item" href="#">70's</a></li>
-                  <li><a class="dropdown-item" href="#">80's</a></li>
-                  <li><a class="dropdown-item" href="#">90's</a></li>
-                  <li><a class="dropdown-item" href="#">00's</a></li>
-                  <li><a class="dropdown-item" href="#">10's</a></li>
-                  <li><a class="dropdown-item" href="#">Current</a></li>
-      
-                </ul>
-              </li>
-              <!-- GENRE Dropdown -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  GENRE
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-                  <li><a class="dropdown-item" href="#">Blues</a></li>
-                  <li><a class="dropdown-item" href="#">Classical</a></li>
-                  <li><a class="dropdown-item" href="#">Country</a></li>
-                  <li><a class="dropdown-item" href="#">Dance/EDM</a></li>
-                  <li><a class="dropdown-item" href="#">Disco</a></li>
-                  <li><a class="dropdown-item" href="#">Folk</a></li>
-                  <li><a class="dropdown-item" href="#">Gospel</a></li>
-                  <li><a class="dropdown-item" href="#">Hip-Hop/Rap</a></li>
-                  <li><a class="dropdown-item" href="#">Jazz</a></li>
-                  <li><a class="dropdown-item" href="#">Latin</a></li>
-                  <li><a class="dropdown-item" href="#">Pop</a></li>
-                  <li><a class="dropdown-item" href="#">R&B/Soul</a></li>
-                  <li><a class="dropdown-item" href="#">Reggae</a></li>
-                  <li><a class="dropdown-item" href="#">Rock</a></li>
-                </ul>
-              </li>
-            </ul>
+  <!-- ARTISTS Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      ARTISTS
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
+      <% dropdowns.artists.forEach(function(artist) { %>
+        <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- DECADE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Decade
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
+      <% dropdowns.decades.forEach(function(decade) { %>
+        <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- GENRE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      GENRE
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+      <% dropdowns.genres.forEach(function(genre) { %>
+        <li><a class="dropdown-item" href="/genre/<%= genre %>"><%= genre %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+</ul>
       
             <!-- Search bar and other items aligned to the right -->
             <form class="d-flex ms-auto" role="search">
@@ -93,55 +77,52 @@
 
 <!-- Dyanmic additon -->
 <div class="container mt-3">
-    <h2 class="text-center mb-4">Your Cart</h2>
-    <!-- Cart Items Container -->
-    <div id="cart-items-container" class="row justify-content-center"></div>
-    <!-- Checkout Button -->
-    <div class="d-flex justify-content-end mt-3">
-      <a href="/checkout" class="btn btn-success btn-lg" role="button">Checkout</a>
-    </div>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const cartItemsContainer = document.getElementById('cart-items-container');
-    
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-      cart.forEach(function(item, index) {
-        const cartItemHtml = `
-          <div class="col-md-8 mb-4">
-            <div class="card">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="${item.image}" class="img-fluid rounded-start" alt="Album Image">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">${item.title}</h5>
-                    <p class="card-text">${item.artist}</p>
-                    <p class="card-text"><small class="text-muted">Price: ${item.price}</small></p>
-                    <button class="btn btn-danger remove-item-btn" data-index="${index}">Remove</button>
+  <h2 class="text-center mb-4">Your Cart</h2>
+  <!-- Cart Items Container -->
+  <div class="row justify-content-center">
+      <% if (cart.length > 0) { %>
+          <% cart.forEach(function(item) { %>
+              <div class="col-md-8 mb-4">
+                  <div class="card">
+                      <div class="row g-0">
+                          <div class="col-md-4">
+                              <img src="<%= item.imageUrl %>" class="img-fluid rounded-start" alt="<%= item.title %>">
+                          </div>
+                          <div class="col-md-8">
+                              <div class="card-body">
+                                  <h5 class="card-title"><%= item.title %></h5>
+                                  <p class="card-text"><%= item.artist %></p>
+                                  <p class="card-text"><small class="text-muted">Price: $<%= item.price %></small></p>
+                                  <button class="btn btn-danger" onclick="removeItem(<%= item.id %>)">Remove</button>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                </div>
               </div>
-            </div>
-          </div>
-        `;
-        cartItemsContainer.innerHTML += cartItemHtml;
-      });
-    
-      // Add event listener for remove buttons after items are added
-      document.querySelectorAll('.remove-item-btn').forEach(button => {
-        button.addEventListener('click', function() {
-          const itemIndex = this.getAttribute('data-index');
-          cart.splice(itemIndex, 1); // Remove item from cart
-          localStorage.setItem('cart', JSON.stringify(cart)); // Update local storage
-          location.reload(); // Refresh page to reflect changes
-        });
-      });
-    });
-    </script>
+          <% }); %>
+      <% } else { %>
+          <p>No items in cart.</p>
+      <% } %>
+  </div>
+  <!-- Checkout Button -->
+  <div class="d-flex justify-content-end mt-3">
+    <a href="/checkout" class="btn btn-success btn-lg" role="button">Checkout</a>
+  </div>
+</div>
+
+<script>
+function removeItem(itemId) {
+  // Call a server-side route to remove the item
+  fetch('/cart/remove/' + itemId, { method: 'POST' })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      window.location.reload(); // Reload the page if item is removed successfully
+    }
+  })
+  .catch(error => console.error('Error removing item:', error));
+}
+</script>
     
 <!-- Bootstrap JS -->
 <script src="js/bootstrap.bundle.min.js"></script>

@@ -14,62 +14,46 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
+      
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Navbar items including dropdowns aligned to the left -->
         <ul class="navbar-nav me-auto">
-          <!-- ARTISTS Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              ARTISTS
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-              <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Go</button>
-              <!-- <li><a class="dropdown-item" href="#">Kanye West</a></li>
-              <li><a class="dropdown-item" href="#">Taylor Swift</a></li>
-              <li><a class="dropdown-item" href="#">The Weeknd</a></li> -->
-              <!-- Additional artist links here -->
-            </ul>
-          </li>
-          <!-- YEAR Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Decade
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-              <li><a class="dropdown-item" href="#">70's</a></li>
-              <li><a class="dropdown-item" href="#">80's</a></li>
-              <li><a class="dropdown-item" href="#">90's</a></li>
-              <li><a class="dropdown-item" href="#">00's</a></li>
-              <li><a class="dropdown-item" href="#">10's</a></li>
-              <li><a class="dropdown-item" href="#">Current</a></li>
-  
-            </ul>
-          </li>
-          <!-- GENRE Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              GENRE
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-              <li><a class="dropdown-item" href="#">Blues</a></li>
-              <li><a class="dropdown-item" href="#">Classical</a></li>
-              <li><a class="dropdown-item" href="#">Country</a></li>
-              <li><a class="dropdown-item" href="#">Dance/EDM</a></li>
-              <li><a class="dropdown-item" href="#">Disco</a></li>
-              <li><a class="dropdown-item" href="#">Folk</a></li>
-              <li><a class="dropdown-item" href="#">Gospel</a></li>
-              <li><a class="dropdown-item" href="#">Hip-Hop/Rap</a></li>
-              <li><a class="dropdown-item" href="#">Jazz</a></li>
-              <li><a class="dropdown-item" href="#">Latin</a></li>
-              <li><a class="dropdown-item" href="#">Pop</a></li>
-              <li><a class="dropdown-item" href="#">R&B/Soul</a></li>
-              <li><a class="dropdown-item" href="#">Reggae</a></li>
-              <li><a class="dropdown-item" href="#">Rock</a></li>
-            </ul>
-          </li>
-        </ul>
+  <!-- ARTISTS Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      ARTISTS
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
+      <% dropdowns.artists.forEach(function(artist) { %>
+        <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- DECADE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Decade
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
+      <% dropdowns.decades.forEach(function(decade) { %>
+        <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+
+  <!-- GENRE Dropdown -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGenre" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      GENRE
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+      <% dropdowns.genres.forEach(function(genre) { %>
+        <li><a class="dropdown-item" href="/genre/<%= genre %>"><%= genre %></a></li>
+      <% }); %>
+    </ul>
+  </li>
+</ul>
   
         <!-- Search bar and other items aligned to the right -->
         <form class="d-flex ms-auto" role="search">
@@ -127,26 +111,21 @@
 <!-- Order Summary Column -->
 <div class="col-lg-5 mb-4">
   <div class="card">
-      <div class="card-header">
-          Your Order
-      </div>
-      <ul class="list-group list-group-flush">
-          <% if (cart && cart.length > 0) { %>
-              <% cart.forEach(function(item) { %>
-                  <li class="list-group-item"><%= item.name %> - $<%= item.price.toFixed(2) %></li>
-              <% }); %>
-          <% } else { %>
-              <li class="list-group-item">Your cart is empty</li>
-          <% } %>            
-      </ul>
-      <div class="card-footer">
-          Total: $<%= total.toFixed(2) %>
-      </div>
+    <div class="card-header">Your Order</div>
+    <ul class="list-group list-group-flush">
+      <% if (cart && cart.length > 0) { %>
+        <% cart.forEach(function(item) { %>
+          <li class="list-group-item"><%= item.title %> - $<%= item.price.toFixed(2) %></li>
+        <% }); %>
+      <% } else { %>
+        <li class="list-group-item">Your cart is empty</li>
+      <% } %>
+    </ul>
+    <div class="card-footer">Total: $<%= total.toFixed(2) %></div>
   </div>
 </div>
 </div>
 </div>
-
 
 
 <!-- Bootstrap JS -->
