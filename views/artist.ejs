@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For the Record</title>
+    <title>Albums by <%= artist %></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -75,32 +75,28 @@
   </div>
 </nav>
 
-
-<!-- Main Content using Bootstrap's Grid System -->
+<!-- Main Content -->
 <div class="container mt-4">
-  <div class="row">
-    <% albums.forEach(function(album) { %>
-      <div class="col-md-3">
-        <!-- Wraps the card in an anchor tag to make it clickable -->
-        <a href="/item/<%= album.id %>" class="card-link text-decoration-none">
-          <div class="card h-100">
-            <img src="<%= album.imageUrl %>" class="card-img-top" alt="<%= album.title %>">
-            <div class="card-body">
-              <h5 class="card-title"><%= album.title %></h5>
-              <p class="card-text">Artist: <%= album.artist %></p>
-              <p class="card-text">Price: $<%= album.price %></p>
+    <h1>Albums by <%= artist %></h1>
+    <div class="row">
+        <% albums.forEach(function(album) { %>
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <img src="<%= album.imageUrl %>" class="card-img-top" alt="<%= album.title %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= album.title %></h5>
+                        <p class="card-text">Artist: <%= album.artist %></p>
+                        <p class="card-text">Price: $<%= album.price.toFixed(2) %></p>
+                        <p class="card-text"><small class="text-muted">Genre: <%= album.genre %></small></p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/item/<%= album.id %>" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </a>
-        <div class="card-footer">
-          <button type="button" class="btn btn-primary w-100 add-to-cart-btn" data-id="<%= album.id %>">Add to Cart</button>
-        </div>          
-      </div>
-    <% }); %>
-  </div>
+        <% }); %>
+    </div>
 </div>
-
-
 
 
 <!-- Bootstrap JS -->

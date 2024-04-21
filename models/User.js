@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 class User {
   static findByEmail(email, callback) {
-    // Find a user by email
+    // Finds a user by email
     db.get("SELECT * FROM users WHERE email = ?", [email], (err, row) => {
       if (err) {
         callback(err, null);
@@ -14,7 +14,7 @@ class User {
   }
 
   static create(newUser, callback) {
-    // Create a new user
+    // Creates a new user
     const { email, password, role } = newUser;
     bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (err) {

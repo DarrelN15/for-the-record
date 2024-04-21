@@ -17,6 +17,7 @@ const genreRouter = require('./routes/genre');
 const productsRouter = require('./routes/products');
 const artistRouter = require('./routes/artist');
 const decadeRouter = require('./routes/decade');
+const albumRoutes = require('./routes/albums');
 
 const setNavigation = require('./middleware/navigation');
 
@@ -60,6 +61,7 @@ app.use('/item', itemRouter);
 app.use('/genre', genreRouter);
 app.use('/artist', artistRouter);
 app.use('/decade', decadeRouter);
+app.use('/album', albumRoutes);
 app.use('/products', productsRouter);
 
 // Catch 404 and forward to error handler

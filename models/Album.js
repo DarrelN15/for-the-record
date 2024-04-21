@@ -1,8 +1,8 @@
-const db = require('../database.js'); // Adjust the path as needed
+const db = require('../database.js'); 
 
 class Album {
   static findAll(callback) {
-    // Get all albums
+    // Gets all albums
     db.all("SELECT * FROM albums", [], (err, rows) => {
       if (err) {
         callback(err, null);
@@ -13,7 +13,7 @@ class Album {
   }
 
   static findByGenre(genre, callback) {
-    // Get albums by genre
+    // Gets albums by genre
     db.all("SELECT * FROM albums WHERE genre = ?", [genre], (err, rows) => {
       if (err) {
         callback(err, null);
@@ -24,7 +24,7 @@ class Album {
   }
 
   static findById(id, callback) {
-    // Get an album by ID
+    // Gets an album by ID
     db.get("SELECT * FROM albums WHERE id = ?", [id], (err, row) => {
       if (err) {
         callback(err, null);
@@ -35,7 +35,7 @@ class Album {
   }
 
   static create(newAlbum, callback) {
-    // Insert a new album
+    // Inserts a new album
     const { title, artist, price, description, genre, imageUrl } = newAlbum;
     db.run("INSERT INTO albums (title, artist, price, description, genre, imageUrl) VALUES (?, ?, ?, ?, ?, ?)",
       [title, artist, price, description, genre, imageUrl], function(err) {

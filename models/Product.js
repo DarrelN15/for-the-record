@@ -32,7 +32,6 @@ const Product = {
     });
   },
 
-  // Other CRUD operations like update and delete would follow similar patterns
 };
 
 module.exports = Product;

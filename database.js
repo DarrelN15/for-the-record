@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-// Connect to SQLite database
+// Connects to SQLite database
 const db = new sqlite3.Database('./my-music-store.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
   if (err) {
     console.error('Error opening database', err.message);
@@ -8,7 +8,7 @@ const db = new sqlite3.Database('./my-music-store.db', sqlite3.OPEN_READWRITE | 
   }
   console.log('Connected to the SQLite database.');
 
-  // Create the 'albums' table if it does not exist
+  // Creates the 'albums' table if it does not exist
   db.run(`
     CREATE TABLE IF NOT EXISTS albums (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,12 +24,9 @@ const db = new sqlite3.Database('./my-music-store.db', sqlite3.OPEN_READWRITE | 
       console.error('Error creating albums table', err.message);
     } else {
       console.log('Albums table is ready or already exists.');
-      // Optional: Insert sample data here if necessary
     }
   });
 
-  // Additional tables can be initialized here if needed
-  // For example, creating an 'artists' table
   db.run(`
     CREATE TABLE IF NOT EXISTS artists (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,7 +38,6 @@ const db = new sqlite3.Database('./my-music-store.db', sqlite3.OPEN_READWRITE | 
       console.error('Error creating artists table', err.message);
     } else {
       console.log('Artists table is ready or already exists.');
-      // Optional: Insert sample artist data here
     }
   });
 });

@@ -9,7 +9,6 @@ const Artist = {
     db.get('SELECT * FROM artists WHERE id = ?', [id], callback);
   },
 
-  // More functions for CRUD operations
 };
 
 module.exports = Artist;

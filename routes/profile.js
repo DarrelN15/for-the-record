@@ -13,7 +13,7 @@ router.post('/create-account', async (req, res) => {
       // Hash the password
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
   
-      // Create a new user record in your SQLite database
+      // Creates a new user record in your SQLite database
       db.run(`INSERT INTO users (email, password, role) VALUES (?, ?, ?)`,
         [req.body.email, hashedPassword, req.body.role], 
         function(err) {
@@ -26,7 +26,7 @@ router.post('/create-account', async (req, res) => {
           }
       });
     } catch (error) {
-      // Handle errors, such as email already in use
+      // Handles errors, such as email already in use
       req.flash('error', 'Account could not be created');
       res.redirect('/profile');
     }

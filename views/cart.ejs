@@ -81,29 +81,31 @@
   <!-- Cart Items Container -->
   <div class="row justify-content-center">
       <% if (cart.length > 0) { %>
-          <% cart.forEach(function(item) { %>
-              <div class="col-md-8 mb-4">
-                  <div class="card">
-                      <div class="row g-0">
-                          <div class="col-md-4">
-                              <img src="<%= item.imageUrl %>" class="img-fluid rounded-start" alt="<%= item.title %>">
-                          </div>
-                          <div class="col-md-8">
-                              <div class="card-body">
-                                  <h5 class="card-title"><%= item.title %></h5>
-                                  <p class="card-text"><%= item.artist %></p>
-                                  <p class="card-text"><small class="text-muted">Price: $<%= item.price %></small></p>
-                                  <button class="btn btn-danger" onclick="removeItem(<%= item.id %>)">Remove</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          <% }); %>
-      <% } else { %>
-          <p>No items in cart.</p>
-      <% } %>
+        <% cart.forEach(function(item) { %>
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="<%= item.imageUrl %>" class="img-fluid rounded-start" alt="<%= item.title %>">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= item.title %></h5>
+                                <p class="card-text"><%= item.artist %></p>
+                                <p class="card-text"><small class="text-muted">Price: $<%= item.price.toFixed(2) %></small></p>
+                                <p class="card-text">Quantity: <%= item.quantity %></p>    
+                                <button type="button" class="btn btn-danger remove-from-cart-btn" data-id="<%= item.id %>">Remove</button>
+                            </div>          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No items in cart.</p>
+    <% } %>
   </div>
+
   <!-- Checkout Button -->
   <div class="d-flex justify-content-end mt-3">
     <a href="/checkout" class="btn btn-success btn-lg" role="button">Checkout</a>

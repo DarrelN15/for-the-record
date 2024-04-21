@@ -1,4 +1,4 @@
-const db = require('../database.js'); // Make sure this points to your SQLite database setup file
+const db = require('../database.js'); 
 
 exports.getAlbums = async (req, res) => {
   db.all("SELECT * FROM albums LIMIT 5", [], (err, albums) => {
@@ -11,4 +11,4 @@ exports.getAlbums = async (req, res) => {
   });
 };
 
-// Implement other functions for genre, decade, and artist search using similar SQL queries
+

@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
   // Clear the cart after successful processing
   req.session.cart = [];
   
-  res.redirect('/order-confirmation'); // Redirect to a confirmation page
+  res.redirect('/order-confirmation'); // Redirects to a confirmation page
 });
 
 module.exports = router;
