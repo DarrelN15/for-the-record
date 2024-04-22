@@ -3,10 +3,9 @@ const express = require('express');
 const path = require('path');
 const createError = require('http-errors');
 const session = require('express-session');
-const db = require('./database.js'); // Includes SQLite database configuration
 const flash = require('connect-flash');
 
-// Imports route handlers
+const db = require('./database'); 
 const indexRouter = require('./routes/index');
 const cartRouter = require('./routes/cart');
 const profileRouter = require('./routes/profile');
@@ -15,75 +14,78 @@ const usersRouter = require('./routes/users');
 const itemRouter = require('./routes/item');
 const genreRouter = require('./routes/genre');
 const productsRouter = require('./routes/products');
-const artistRouter = require('./routes/artist');
-const decadeRouter = require('./routes/decade');
-const albumRoutes = require('./routes/albums');
+const adminRouter = require('./routes/admin');
+const authRouter = require('./routes/auth'); 
 
+const { ensureAuthenticated, checkAdmin, checkUser } = require('./middleware/authMiddleware');
 const setNavigation = require('./middleware/navigation');
 
 const app = express();
 
-// Sets up view engine 
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
 // Middleware
-app.use(setNavigation);
-app.use(express.static(path.join(__dirname, 'public'))); // Static file serving
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Uses environment variable for the secret
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === 'production' } // Uses secure cookies in production
+  cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
-// Sets up static file serving
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(setNavigation);
 
+// Pass flash messages to all views
 app.use(flash());
-
-// Passes messages to all views
 app.use((req, res, next) => {
   res.locals.messages = req.flash();
   next();
 });
 
-// Defines routes
+// Authentication middleware
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
+// Routes
 app.use('/', indexRouter);
-app.use('/cart', cartRouter);
-app.use('/profile', profileRouter);
-app.use('/checkout', checkoutRouter);
+app.use('/cart', ensureAuthenticated, cartRouter);
+app.use('/profile', ensureAuthenticated, profileRouter);
+app.use('/checkout', ensureAuthenticated, checkoutRouter);
 app.use('/users', usersRouter);
 app.use('/item', itemRouter);
 app.use('/genre', genreRouter);
-app.use('/artist', artistRouter);
-app.use('/decade', decadeRouter);
-app.use('/album', albumRoutes);
 app.use('/products', productsRouter);
+app.use('/auth', authRouter);
+app.use('/admin', ensureAuthenticated, checkAdmin, adminRouter);
 
-// Catch 404 and forward to error handler
-app.use(function(req, res, next) {
+// Admin routes - only accessible to admins
+app.use('/admin', ensureAuthenticated, checkAdmin, adminRouter);
+
+// Catches 404 and forwards to error handler
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // Error handler
-app.use(function(err, req, res, next) {
-  // Sets locals, only providing error in development
+app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // Renders the error page
+  res.locals.user = req.session.user || null;
+  next();
   res.status(err.status || 500);
   res.render('error');
 });
 
-// Sets the port and listen for requests
+// Server setup
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
 
 module.exports = app;

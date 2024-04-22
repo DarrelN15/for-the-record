@@ -13,15 +13,25 @@ class User {
     });
   }
 
+  static findById(id, callback) {
+    // Finds a user by id
+    db.get("SELECT * FROM users WHERE id = ?", [id], (err, row) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, row);
+      }
+    });
+  }
+
   static create(newUser, callback) {
-    // Creates a new user
-    const { email, password, role } = newUser;
+    const { username, email, password, role } = newUser; 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (err) {
         callback(err);
       } else {
-        db.run("INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
-          [email, hashedPassword, role], function(err) {
+        db.run("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
+          [username, email, hashedPassword, role], function(err) {
             if (err) {
               callback(err);
             } else {

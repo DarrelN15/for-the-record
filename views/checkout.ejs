@@ -103,29 +103,46 @@
                     <label for="paymentInfo" class="form-label">Payment Info</label>
                     <input type="text" class="form-control" id="paymentInfo" name="paymentInfo" required>
                 </div>
-                <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Purchase</button>
             </form>
         </div>
 
-<!-- Order Summary Column -->
-<div class="col-lg-5 mb-4">
-  <div class="card">
-    <div class="card-header">Your Order</div>
-    <ul class="list-group list-group-flush">
-      <% if (cart && cart.length > 0) { %>
-        <% cart.forEach(function(item) { %>
-          <li class="list-group-item"><%= item.title %> - $<%= item.price.toFixed(2) %></li>
-        <% }); %>
-      <% } else { %>
-        <li class="list-group-item">Your cart is empty</li>
-      <% } %>
-    </ul>
-    <div class="card-footer">Total: $<%= total.toFixed(2) %></div>
-  </div>
+        <div class="container mt-5">
+          <h2>Checkout</h2>
+          <!-- Display flash messages for success or errors -->
+          <% if (messages.success) { %>
+              <div class="alert alert-success" role="alert">
+                  <%= messages.success %>
+              </div>
+          <% } %>
+          <% if (messages.error) { %>
+              <div class="alert alert-danger" role="alert">
+                  <%= messages.error %>
+              </div>
+          <% } %>
+
+      <!-- Order Summary -->
+      <div class="card">
+        <div class="card-header">
+            Order Summary
+        </div>
+        <ul class="list-group list-group-flush">
+            <% cart.forEach(function(item) { %>
+                <li class="list-group-item">
+                    <%= item.title %> - $<%= item.price.toFixed(2) %> 
+                </li>
+            <% }); %>
+            <li class="list-group-item">
+                <strong>Total: $<%= total.toFixed(2) %></strong>
+            </li>
+        </ul>
+        <div class="card-body">
+            <form action="/checkout/purchase" method="post">
+                <button type="submit" class="btn btn-success">Purchase</button>
+            </form>
+        </div>
+    </div>
 </div>
-</div>
-</div>
+
 
 
 <!-- Bootstrap JS -->

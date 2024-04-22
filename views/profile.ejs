@@ -19,41 +19,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar items including dropdowns aligned to the left -->
       <ul class="navbar-nav me-auto">
-        <!-- ARTISTS Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ARTISTS
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Go</button>
-            
-          </ul>
-        </li>
-        <!-- YEAR Dropdown -->
-  <!-- ARTISTS Dropdown -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      ARTISTS
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-      <% dropdowns.artists.forEach(function(artist) { %>
-        <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
-      <% }); %>
-    </ul>
-  </li>
-
-  <!-- DECADE Dropdown -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Decade
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-      <% dropdowns.decades.forEach(function(decade) { %>
-        <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
-      <% }); %>
-    </ul>
-  </li>
 
   <!-- GENRE Dropdown -->
   <li class="nav-item dropdown">
@@ -86,44 +51,15 @@
   </div>
 </nav>
 
-<div class="container py-5">
-  <div class="row justify-content-center">
-      <div class="col-md-6">
-          <h2 class="mb-4">Create Your Account</h2>
-          <!-- Display potential flash messages for errors or success -->
-          <% if (messages.error) { %>
-            <div class="alert alert-danger" role="alert">
-              <%= messages.error %>
-            </div>
-          <% } %>
-          <% if (messages.success) { %>
-            <div class="alert alert-success" role="alert">
-              <%= messages.success %>
-            </div>
-          <% } %>          
-          <form id="createAccountForm" action="/profile/create-account" method="post">
-            <div class="mb-3">
-              <label for="userEmail" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="userEmail" name="email" required aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-              <label for="userPassword" class="form-label">Password</label>
-              <input type="password" class="form-control" id="userPassword" name="password" required>
-            </div>
-            <div class="mb-3">
-              <label for="userRole" class="form-label">Role</label>
-              <select class="form-select" id="userRole" name="role" required>
-                <option value="">Select Role...</option>
-                <option value="artist">Artist</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-success btn-lg">Create Account</button>
-          </form>
-      </div>
-  </div>
+<!-- profile.ejs -->
+<div class="container mt-5">
+  <h2>Welcome, <%= user.username %></h2>
+  <p>Email: <%= user.email %></p>
+  <p>Role: <%= user.role %></p>
+  <!-- Add other user details you wish to display -->
+  <a href="/auth/logout" class="btn btn-danger">Logout</a>
 </div>
+
 
 <!-- Bootstrap JS -->
 <script src="js/bootstrap.bundle.min.js"></script>

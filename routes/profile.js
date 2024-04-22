@@ -2,35 +2,32 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../database.js'); 
+const User = require('../models/User'); 
 
-router.get('/', (req, res) => {
-  res.render('profile');
+function ensureAuthenticated(req, res, next) {
+    if (!req.session.user) {
+        req.flash('error', 'You need to be logged in to view this page.');
+        return res.redirect('/auth/login');
+    }
+    next();
+}
+
+router.get('/', ensureAuthenticated, (req, res) => {
+    const userId = req.session.user.id;
+    User.findById(userId, (err, user) => { 
+        if (err) {
+            req.flash('error', 'Error retrieving user information.');
+            return res.redirect('/'); // Redirects to a safe page
+        }
+        res.render('profile', { user });
+    });
 });
 
-// Handles POST request for account creation
-router.post('/create-account', async (req, res) => {
-    try {
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  
-      // Creates a new user record in your SQLite database
-      db.run(`INSERT INTO users (email, password, role) VALUES (?, ?, ?)`,
-        [req.body.email, hashedPassword, req.body.role], 
-        function(err) {
-          if (err) {
-            req.flash('error', 'Account could not be created');
-            res.redirect('/profile'); // Stay on the same page to show the error
-          } else {
-            req.flash('success', 'Account created successfully.');
-            res.redirect('/login'); // Adjust according to your routing
-          }
-      });
-    } catch (error) {
-      // Handles errors, such as email already in use
-      req.flash('error', 'Account could not be created');
-      res.redirect('/profile');
-    }
-  });
-  
+// Handles POST request for account updates if needed
+router.post('/update-account', ensureAuthenticated, async (req, res) => {
+    const { email, username } = req.body;
+    const userId = req.session.user.id;
+
+});
 
 module.exports = router;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - For the Record</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Bootstrap Navbar with Dropdowns and Search Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">For the Record</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Create Your Account</h2>
+            <!-- Display potential flash messages for errors or success -->
+            <% if (messages.error && messages.error.length > 0) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= messages.error %>
+              </div>
+            <% } %>
+            <% if (messages.success) { %>
+              <div class="alert alert-success" role="alert">
+                <%= messages.success %>
+              </div>
+            <% } %>  
+         <!-- register.ejs -->
+            <form action="/auth/register" method="post">
+                <!-- Username input -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                
+                <!-- Email input -->
+                <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                
+                <!-- Password input -->
+                <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+            
+                <!-- Role selection -->
+                <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select id="role" name="role" class="form-select" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                </div>
+                
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>          
+          </div>
+      </div>
+    </div>
+
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="/js/custom.js"></script>
+
+
+
+</body>
+</html>

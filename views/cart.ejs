@@ -18,29 +18,6 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar items including dropdowns aligned to the left -->
             <ul class="navbar-nav me-auto">
-  <!-- ARTISTS Dropdown -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtists" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      ARTISTS
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtists">
-      <% dropdowns.artists.forEach(function(artist) { %>
-        <li><a class="dropdown-item" href="/artist/<%= artist %>"><%= artist %></a></li>
-      <% }); %>
-    </ul>
-  </li>
-
-  <!-- DECADE Dropdown -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYear" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Decade
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYear">
-      <% dropdowns.decades.forEach(function(decade) { %>
-        <li><a class="dropdown-item" href="/decade/<%= decade %>"><%= decade %></a></li>
-      <% }); %>
-    </ul>
-  </li>
 
   <!-- GENRE Dropdown -->
   <li class="nav-item dropdown">

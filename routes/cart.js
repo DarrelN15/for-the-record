@@ -9,8 +9,13 @@ router.get('/', async (req, res) => {
 });
 
 // Route to add an album to the cart
-router.post('/add-to-cart', (req, res) => {
+router.post('/add-to-cart', ensureAuthenticated, (req, res) => {
     const { albumId } = req.body;
+    if (!req.session.user) {
+        return res.status(403).json({ success: false, message: 'You must be logged in to add items to the cart.' });
+    }
+    const userId = req.session.user.id; 
+
     db.get('SELECT * FROM albums WHERE id = ?', [albumId], (err, album) => {
       if (err) {
         console.error('Error fetching album:', err);
@@ -18,19 +23,19 @@ router.post('/add-to-cart', (req, res) => {
       }
       if (!album) {
         return res.status(404).json({ success: false, message: 'Album not found.' });
-      }  
+      }
       if (!req.session.cart) {
         req.session.cart = [];
       }
       
-      // Checks if the album is already in the cart
-      let existingAlbumIndex = req.session.cart.findIndex(item => item.id == albumId);
+      // Check if the album is already in the cart
+      let existingAlbumIndex = req.session.cart.findIndex(item => item.id === albumId);
       
       if (existingAlbumIndex > -1) {
-        // Increments quantity
+        // Increment quantity if already in cart
         req.session.cart[existingAlbumIndex].quantity += 1;
       } else {
-        // Adds a new item to the cart
+        // Add new item to the cart
         req.session.cart.push({
           id: album.id,
           title: album.title,
@@ -41,10 +46,18 @@ router.post('/add-to-cart', (req, res) => {
         });
       }
       
-      // Responds with JSON
+      // Respond with JSON indicating success
       res.json({ success: true, message: 'Added to cart!' });
     });
-  });
+});
+
+function ensureAuthenticated(req, res, next) {
+    if (!req.session.user) {
+        return res.status(403).json({ success: false, message: 'Not authenticated. Please log in.' });
+    }
+    next();
+}
+
   
 // Route to handle the POST request for item removal
 router.post('/remove-item', (req, res) => {
