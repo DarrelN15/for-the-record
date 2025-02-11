@@ -59,19 +59,19 @@ router.get('/register', (req, res) => {
 // Route for handling registration
 router.post('/register', (req, res) => {
     console.log('Register endpoint hit'); // Log when the endpoint is hit
-    const { username, email, password, role } = req.body; 
+    const { username, email, password, role } = req.body;
     
-    console.log('Register Form Data:', req.body); // Logs the form data received
+    console.log('Register Form Data:', req.body); // Log the form data received
 
     User.create({ username, email, password, role }, (err, newUser) => {
         if (err) {
-            console.error('Error during user creation:', err); // Logs any errors during user creation
-            req.flash('error', 'Error registering the user. That email or username might already be in use.');
+            console.error('Error during user creation:', err); // Log any errors during user creation
+            req.flash('error', err.message); // Show error message if username exists
             res.redirect('/auth/register');
         } else {
-            console.log('New user created:', newUser); // Logs the new user data
+            console.log('New user created:', newUser); // Log the new user data
             req.flash('success', 'Account created successfully! Please login.');
-            res.redirect('/auth/login'); // Redirects to the login page after successful registration
+            res.redirect('/auth/login'); // Redirect to the login page after successful registration
         }
     });
 });

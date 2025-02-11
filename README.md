@@ -1,93 +1,147 @@
-# 489 For The Record
+# For The Record - Music Store
+
+## Developer: Darrel Nitereka
+
+---
+
+## Introduction
+
+For The Record is a full-stack music store web application that I developed to provide users with a seamless browsing and shopping experience for music albums. This project showcases my skills in backend and frontend development, database management, and user authentication. It includes features such as album browsing, shopping cart functionality, search capabilities, and an admin panel for inventory management.
+
+Originally conceptualized as a collaborative project, I took full ownership of the development process, building the backend with Node.js and Express, structuring the database with SQLite, and rendering the UI using EJS and Bootstrap. This project serves as a demonstration of my ability to design, develop, and deploy a fully functional web application.
+
+### **Homepage Preview**
+![For The Record Homepage](public/Images/homepage.png)
 
 
+## Tech Stack
 
-## Getting started
+- **Backend:** Node.js, Express.js
+- **Database:** SQLite
+- **Frontend:** EJS (Embedded JavaScript Templates)
+- **Styling:** Bootstrap
+- **Environment Management:** dotenv (if applicable)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+---
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Features
 
-## Add your files
+- **Browse Albums & Artists**: View a catalog of music albums and artists.
+- **Shopping Cart**: Add, remove, and checkout items.
+- **Search Functionality**: Search for albums and artists in the store.
+- **User Authentication**: Create an account, log in, and manage purchases.
+- **Admin Panel**: Manage store inventory (add/edit/remove products).
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Installation & Setup
 
+### Prerequisites
+
+- Install **Node.js** & **npm**
+- Clone this repository:
+  ```bash
+  git clone https://github.com/yourusername/for-the-record.git
+  cd for-the-record
+  ```
+- Install dependencies:
+  ```bash
+  npm install
+  ```
+- Set up SQLite database:
+  ```bash
+  node database.js
+  ```
+- Run the server:
+  ```bash
+  npm start
+  ```
+  The app should now be running on **[http://localhost:3000](http://localhost:3000)**.
+
+## Code Overview
+
+### Models
+
+Database models handle data retrieval and persistence using SQLite.
+
+```javascript
+const db = require('../database');
+
+class Product {
+  static async findAll() {
+    return db.all('SELECT * FROM products');
+  }
+}
 ```
-cd existing_repo
-git remote add origin https://gitlab.eecs.wsu.edu/nefstath/489-for-the-record.git
-git branch -M main
-git push -uf origin main
+
+### Controllers
+
+Controllers handle data retrieval logic.
+
+```javascript
+const Album = require('../models/Album');
+
+exports.getAlbums = async (req, res) => {
+  try {
+    const albums = await Album.findAll();
+    res.render('albums', { albums });
+  } catch (error) {
+    res.status(500).send('Error retrieving albums');
+  }
+};
 ```
 
-## Integrate with your tools
+### Views
 
-- [ ] [Set up project integrations](https://gitlab.eecs.wsu.edu/nefstath/489-for-the-record/-/settings/integrations)
+EJS templates dynamically render pages with SQLite data.
 
-## Collaborate with your team
+```html
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/shop">Shop</a></li>
+  </ul>
+</nav>
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+---
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### User Flows
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- **Add Item to Cart**
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+  1. Navigate to the shop page.
+  2. Click "Add to Cart" on a product.
+  3. Item appears in the cart.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- **Checkout Process**
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+  1. Click "Checkout" in the cart.
+  2. Enter required details (name, email, payment info).
+  3. Confirm purchase.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- **Admin Panel Access**
+
+  1. Log in as an admin.
+  2. Manage product inventory (add, edit, delete products).
+
+---
+
+## Future Enhancements
+
+- Integrate **payment gateway** for actual transactions.
+- Improve search functionality with **filters & sorting**.
+- Add API integrations for **music recommendations**.
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+MIT License
+
+## Contact
+
+For questions, feel free to reach out or connect with me:
+
+- **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/darrel-nitereka-414452233//)
+- **GitHub:** [Your GitHub Profile](https://github.com/DarrelN15)
+
+
