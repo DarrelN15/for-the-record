@@ -1,5 +1,10 @@
 # For The Record - Music Store
 
+<!-- ![For The Record Homepage](public/Images/record.jpg) -->
+
+<img src="public/Images/record.jpg" alt="Record Image" width="250"/>
+
+
 ## Developer: Darrel Nitereka
 
 ---
@@ -141,7 +146,7 @@ MIT License
 
 For questions, feel free to reach out or connect with me:
 
-- **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/darrel-nitereka-414452233//)
-- **GitHub:** [Your GitHub Profile](https://github.com/DarrelN15)
+- [LinkedIn Profile](https://www.linkedin.com/in/darrel-nitereka-414452233//)
+- [GitHub Profile](https://github.com/DarrelN15)
 
 
